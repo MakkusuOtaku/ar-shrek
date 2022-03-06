@@ -53,11 +53,11 @@ let gyroscope = new Gyroscope({frequency: 10});
 let acceleration = new Accelerometer({frequency: 10});
 
 gyroscope.addEventListener('reading', e => {
-    gyroData.innerHTML = `X: ${gyroscope.x}<br>Y: ${gyroscope.y}<br>Z: ${gyroscope.z}`;
+    //gyroData.innerHTML = `X: ${gyroscope.x}<br>Y: ${gyroscope.y}<br>Z: ${gyroscope.z}`;
 });
 
 acceleration.addEventListener('reading', e => {
-    accelData.innerHTML = `X: ${acceleration.x}<br>Y: ${acceleration.y}<br>Z: ${acceleration.z}`;
+    //accelData.innerHTML = `X: ${acceleration.x}<br>Y: ${acceleration.y}<br>Z: ${acceleration.z}`;
 });
 
 gyroscope.start();
@@ -65,12 +65,23 @@ acceleration.start();
 
 // Account for mobile orientation
 window.addEventListener('deviceorientation', (event) => {
+    gyroData.innerHTML = `
+        B: ${event.beta}<br>
+        G: ${event.gamma}
+    `;
+
     camera.rotation.x = event.beta / 360 * Math.PI;
     camera.rotation.y = event.gamma / 360 * Math.PI;
 });
 
 // And accelerometer
 window.addEventListener('devicemotion', (event) => {
+    accelData.innerHTML = `
+        X: ${event.acceleration.x}<br>
+        Y: ${event.acceleration.y}<br>
+        Z: ${event.acceleration.z}
+    `;
+
     camera.position.x = event.acceleration.x;
     camera.position.y = event.acceleration.y;
 });
