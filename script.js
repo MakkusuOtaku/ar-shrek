@@ -34,8 +34,14 @@ scene.add(light);
 const light2 = new THREE.AmbientLight(0xffffff, 0.5);
 scene.add(light2);
 
-const shrekGeometry = new THREE.BoxGeometry(1, 1, 1);
-const shrekMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+// Plane geometry
+const shrekGeometry = new THREE.PlaneGeometry(1, 1.5, 1);
+// Shrek material with texture from shrek.png
+const shrekMaterial = new THREE.MeshBasicMaterial({
+    map: loader.load('shrek.png'),
+    color: 0xffffff,
+    transparent: true,
+});
 const shreks = [];
 
 function createShrek() {
@@ -46,8 +52,8 @@ function createShrek() {
 
 createShrek();
 
-const gyroData = document.getElementById('gyroData');
-const accelData = document.getElementById('accelData');
+const gyroData = document.getElementById('gyro-data');
+const accelData = document.getElementById('accel-data');
 
 let gyroscope = new Gyroscope({frequency: 10});
 let acceleration = new Accelerometer({frequency: 10});
@@ -82,8 +88,8 @@ window.addEventListener('devicemotion', (event) => {
         Z: ${event.acceleration.z}
     `;
 
-    camera.position.x = event.acceleration.x;
-    camera.position.y = event.acceleration.y;
+    camera.position.x += event.acceleration.x;
+    camera.position.y += event.acceleration.y;
 });
 
 const video = document.querySelector('video');
