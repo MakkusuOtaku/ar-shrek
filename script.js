@@ -88,8 +88,8 @@ window.addEventListener('devicemotion', (event) => {
         Z: ${event.acceleration.z}
     `;
 
-    camera.position.x += event.acceleration.x;
-    camera.position.y += event.acceleration.y;
+    camera.position.x -= event.acceleration.x;
+    camera.position.y -= event.acceleration.y;
 });
 
 const video = document.querySelector('video');
